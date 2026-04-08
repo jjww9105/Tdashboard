@@ -9,25 +9,14 @@
       <stop offset="100%" stop-color="#60a5fa"/>
     </linearGradient>
   </defs>
+  <!-- 배경 -->
   <rect width="512" height="512" rx="112" fill="url(#bg)"/>
-  <!-- Cloud shape -->
-  <g transform="translate(256,220)">
-    <ellipse cx="0" cy="20" rx="120" ry="60" fill="white" opacity="0.9"/>
-    <circle cx="-60" cy="-10" r="60" fill="white" opacity="0.9"/>
-    <circle cx="30" cy="-30" r="70" fill="white" opacity="0.9"/>
-    <circle cx="70" cy="0" r="50" fill="white" opacity="0.9"/>
-  </g>
-  <!-- Fork icon -->
-  <g transform="translate(210,300)" fill="url(#accent)">
-    <rect x="0" y="0" width="8" height="60" rx="4"/>
-    <rect x="20" y="0" width="8" height="60" rx="4"/>
-    <rect x="40" y="0" width="8" height="60" rx="4"/>
-    <rect x="-4" y="55" width="56" height="10" rx="5"/>
-    <rect x="16" y="60" width="16" height="50" rx="8"/>
-  </g>
-  <!-- Spoon icon -->
-  <g transform="translate(270,300)" fill="url(#accent)">
-    <ellipse cx="20" cy="20" rx="24" ry="28"/>
-    <rect x="12" y="42" width="16" height="50" rx="8"/>
-  </g>
+  <!-- 구름 -->
+  <ellipse cx="256" cy="270" rx="150" ry="70" fill="white" opacity="0.95"/>
+  <circle cx="170" cy="240" r="70" fill="white" opacity="0.95"/>
+  <circle cx="260" cy="210" r="85" fill="white" opacity="0.95"/>
+  <circle cx="340" cy="245" r="60" fill="white" opacity="0.95"/>
+  <!-- T 글자 -->
+  <rect x="196" y="190" width="120" height="28" rx="14" fill="url(#accent)"/>
+  <rect x="240" y="190" width="32" height="130" rx="16" fill="url(#accent)"/>
 </svg>
