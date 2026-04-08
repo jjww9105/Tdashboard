@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #f53d93;
+  --color-primary-light: rgba(245, 61, 147, 0.10);
+  --color-primary-shadow: rgba(245, 61, 147, 0.15);
+  --color-bg-start: #f8f5f7;
+  --color-bg-end: #e0f2fe;
+  --color-card: #ffffff;
+  --color-text-main: #1f2937;
+  --color-text-muted: #9ca3af;
+  --color-gradient-cal-start: #f53d93;
+  --color-gradient-cal-end: #60a5fa;
+
+  --font-display: 'Spline Sans', sans-serif;
+
+  --radius-card: 40px;
+  --radius-pill: 9999px;
+  --radius-default: 16px;
+
+  --shadow-soft-pink: 0 12px 32px rgba(245, 61, 147, 0.15);
+  --shadow-header: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-tabbar: 0 -10px 40px rgba(0, 0, 0, 0.05);
+}
+
+body {
+  font-family: var(--font-display);
+  background: linear-gradient(135deg, var(--color-bg-start) 0%, var(--color-bg-end) 100%);
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  color: var(--color-text-main);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.material-symbols-outlined.filled {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}

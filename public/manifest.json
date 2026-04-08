@@ -1,0 +1,28 @@
+{
+  "name": "Soft Cloud Dashboard",
+  "short_name": "급식대시보드",
+  "description": "초등학교 교실 태블릿용 학급 대시보드",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f5f7",
+  "theme_color": "#f53d93",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
