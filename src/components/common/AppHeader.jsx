@@ -20,7 +20,7 @@ export default function AppHeader({ onSchoolChange }) {
           </svg>
         </div>
         <h2 className="text-text-main text-xl font-black leading-tight tracking-tight">
-          {school?.schoolName || 'Soft Cloud Dashboard'}
+          {school?.schoolName || 'Tdashboard'}
         </h2>
       </button>
     </header>
