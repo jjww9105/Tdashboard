@@ -3,11 +3,10 @@ import { useClassSetting } from '../../hooks/useClassSetting'
 import { useTimetableData } from '../../hooks/useTimetableData'
 import { useTeacherAuth } from '../../hooks/useTeacherAuth'
 import { useCurrentPeriod } from '../../hooks/useCurrentPeriod'
-import { formatWeekRange } from '../../utils/weekUtils'
 import { upsertTimetableCell } from '../../utils/supabase'
 import { DEFAULT_PERIODS } from '../../constants'
+import PageTitle from '../common/PageTitle'
 import WeekGrid from './WeekGrid'
-import WeekSwiper from './WeekSwiper'
 import TimetableSettings from './TimetableSettings'
 import PinGate from './PinGate'
 import PinSetup from './PinSetup'
@@ -21,7 +20,6 @@ function todayWeekday() {
 }
 
 export default function TimetableView() {
-  const [weekOffset, setWeekOffset] = useState(0)
   const [stage, setStage] = useState('none')
   const [editMode, setEditMode] = useState(false)
   const [pickerTarget, setPickerTarget] = useState(null)
@@ -37,7 +35,7 @@ export default function TimetableView() {
 
   const { data, isLoading, error, empty, patchCell } = useTimetableData(
     effectiveStage === 'none' && isConfigured ? setting : null,
-    weekOffset
+    0
   )
 
   const currentPeriod = useCurrentPeriod(
@@ -54,7 +52,6 @@ export default function TimetableView() {
     isConfigured &&
     effectiveStage === 'none' &&
     setting?.sourcePreference === 'neis' &&
-    weekOffset === 0 &&
     !isLoading &&
     !error &&
     empty
@@ -94,18 +91,10 @@ export default function TimetableView() {
     )
   }
 
-  const weekRange = formatWeekRange(new Date(), weekOffset)
   const periodsPerDay = setting?.periodsPerDay || DEFAULT_PERIODS
-  const highlightTodayColumn = weekOffset === 0 ? todayWeekday() : null
-  const canEdit = isSupabaseSource && weekOffset === 0
-  const currentCell = weekOffset === 0 ? currentPeriod : null
-
-  const titleText =
-    weekOffset === 0
-      ? '이번 주 시간표'
-      : weekOffset < 0
-        ? `${-weekOffset}주 전 시간표`
-        : `${weekOffset}주 후 시간표`
+  const highlightTodayColumn = todayWeekday()
+  const canEdit = isSupabaseSource
+  const currentCell = currentPeriod
 
   const handleCellTap = (weekday, period) => {
     setPickerTarget({ weekday, period })
@@ -149,15 +138,7 @@ export default function TimetableView() {
         <span className="material-symbols-outlined">settings</span>
       </button>
 
-      <div className="flex flex-col items-center gap-3 w-full">
-        <div className="bg-white/80 backdrop-blur-sm px-6 py-2 rounded-full shadow-header text-primary font-bold text-lg inline-flex items-center gap-2">
-          <span className="material-symbols-outlined filled">date_range</span>
-          {weekRange}
-        </div>
-        <h1 className="text-text-main text-5xl font-black leading-tight tracking-tight text-center mt-2">
-          {titleText}
-        </h1>
-      </div>
+      <PageTitle title="우리 반 시간표" date={new Date()} />
 
       {canEdit && (
         <div className="w-full max-w-2xl mx-auto -mb-2">
@@ -179,19 +160,17 @@ export default function TimetableView() {
         </div>
       )}
 
-      <WeekSwiper weekOffset={weekOffset} onChangeOffset={setWeekOffset}>
-        <WeekGrid
-          data={data}
-          periodsPerDay={periodsPerDay}
-          todayWeekday={highlightTodayColumn}
-          currentCell={currentCell}
-          isLoading={isLoading}
-          error={error}
-          empty={empty}
-          editMode={canEdit && editMode}
-          onCellTap={handleCellTap}
-        />
-      </WeekSwiper>
+      <WeekGrid
+        data={data}
+        periodsPerDay={periodsPerDay}
+        todayWeekday={highlightTodayColumn}
+        currentCell={currentCell}
+        isLoading={isLoading}
+        error={error}
+        empty={empty}
+        editMode={canEdit && editMode}
+        onCellTap={handleCellTap}
+      />
 
       {pickerTarget && (
         <SubjectPicker
