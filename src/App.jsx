@@ -4,6 +4,7 @@ import BottomTabBar from './components/common/BottomTabBar'
 import MealSwiper from './components/meal/MealSwiper'
 import SchoolSearch from './components/meal/SchoolSearch'
 import ComingSoon from './components/placeholder/ComingSoon'
+import TimetableView from './components/timetable/TimetableView'
 import { useLocalStorage } from './hooks/useLocalStorage'
 import { useWakeLock } from './hooks/useWakeLock'
 import { STORAGE_KEY_SCHOOL } from './constants'
@@ -47,7 +48,7 @@ function App() {
     meal: showSearch
       ? <SchoolSearch onSelectSchool={handleSelectSchool} />
       : <MealSwiper school={school} />,
-    schedule: <ComingSoon tabName="시간표" />,
+    schedule: <TimetableView />,
     notice: <ComingSoon tabName="알림장" />,
     more: <ComingSoon tabName="더보기" />,
   }
