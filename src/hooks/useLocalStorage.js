@@ -1,4 +1,6 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
+
+const SYNC_EVENT = 'softcloud:localstorage-sync'
 
 export function useLocalStorage(key, initialValue) {
   const [storedValue, setStoredValue] = useState(() => {
@@ -10,6 +12,14 @@ export function useLocalStorage(key, initialValue) {
     }
   })
 
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.detail?.key === key) setStoredValue(e.detail.value)
+    }
+    window.addEventListener(SYNC_EVENT, handler)
+    return () => window.removeEventListener(SYNC_EVENT, handler)
+  }, [key])
+
   const setValue = useCallback((value) => {
     const valueToStore = value instanceof Function ? value(storedValue) : value
     setStoredValue(valueToStore)
@@ -18,6 +28,9 @@ export function useLocalStorage(key, initialValue) {
     } catch {
       // localStorage 용량 초과 등 무시
     }
+    window.dispatchEvent(
+      new CustomEvent(SYNC_EVENT, { detail: { key, value: valueToStore } })
+    )
   }, [key, storedValue])
 
   const removeValue = useCallback(() => {
@@ -27,6 +40,9 @@ export function useLocalStorage(key, initialValue) {
     } catch {
       // 무시
     }
+    window.dispatchEvent(
+      new CustomEvent(SYNC_EVENT, { detail: { key, value: initialValue } })
+    )
   }, [key, initialValue])
 
   return [storedValue, setValue, removeValue]
