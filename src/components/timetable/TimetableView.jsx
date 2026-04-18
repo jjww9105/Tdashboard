@@ -130,35 +130,34 @@ export default function TimetableView() {
 
   return (
     <div className="flex flex-col gap-6 p-4 relative">
-      <button
-        onClick={() => setStage('auth')}
-        className="absolute top-4 right-4 md:right-6 z-20 w-11 h-11 flex items-center justify-center rounded-full bg-white/80 backdrop-blur-sm text-text-muted hover:text-primary shadow-header transition-colors"
-        aria-label="시간표 설정"
-      >
-        <span className="material-symbols-outlined">settings</span>
-      </button>
+      <div className="absolute top-4 right-4 md:right-6 z-20 flex items-center gap-2">
+        {canEdit && (
+          <button
+            type="button"
+            onClick={() => setEditMode((v) => !v)}
+            className={`w-11 h-11 flex items-center justify-center rounded-full backdrop-blur-sm shadow-header transition-colors ${
+              editMode
+                ? 'bg-primary text-white hover:opacity-90'
+                : 'bg-white/80 text-text-muted hover:text-primary'
+            }`}
+            aria-label={editMode ? '편집 완료' : '시간표 편집'}
+            aria-pressed={editMode}
+          >
+            <span className="material-symbols-outlined">
+              {editMode ? 'done' : 'edit'}
+            </span>
+          </button>
+        )}
+        <button
+          onClick={() => setStage('auth')}
+          className="w-11 h-11 flex items-center justify-center rounded-full bg-white/80 backdrop-blur-sm text-text-muted hover:text-primary shadow-header transition-colors"
+          aria-label="시간표 설정"
+        >
+          <span className="material-symbols-outlined">settings</span>
+        </button>
+      </div>
 
       <PageTitle title="우리 반 시간표" date={new Date()} />
-
-      {canEdit && (
-        <div className="w-full max-w-2xl mx-auto -mb-2">
-          <div className="flex items-center justify-between px-5 py-3 rounded-full bg-primary-light text-primary">
-            <span className="flex items-center gap-2 text-base font-bold">
-              <span className="material-symbols-outlined text-lg">
-                {editMode ? 'edit' : 'lock'}
-              </span>
-              {editMode ? '편집 중' : '읽기 전용'}
-            </span>
-            <button
-              type="button"
-              onClick={() => setEditMode((v) => !v)}
-              className="text-sm font-bold hover:underline underline-offset-4"
-            >
-              {editMode ? '완료' : '편집'}
-            </button>
-          </div>
-        </div>
-      )}
 
       <WeekGrid
         data={data}
